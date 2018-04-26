@@ -1,47 +1,89 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using static System.Environment;
 namespace SpartanEnvironment
 {
     public class Environment : IEnviroment
     {
 
-        public string Get(string name)
+        public string Get(string name, EnvironmentVariableTarget target = EnvironmentVariableTarget.Process)
         {
             string retVal = string.Empty;
             if (!string.IsNullOrWhiteSpace(name))
             {
-                retVal = GetEnvironmentVariable(name);
+                retVal = GetEnvironmentVariable(name, target);
             }
             return retVal;
         }
 
-        public void Set(string name, string value)
+        public string GetUserVariable(string name)
+        {
+            string retVal = string.Empty;
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                retVal = Get(name, EnvironmentVariableTarget.User);
+            }
+            return retVal;
+        }
+
+        public void Set(string name, string value, EnvironmentVariableTarget target = EnvironmentVariableTarget.Process)
         {
             if(!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(value))
             {
-                SetEnvironmentVariable(name, value);
+                SetEnvironmentVariable(name, value, target);
             }   
         }
 
-        public Task SetAsync(string name, string value) => Task.Run(async () =>
+        public void SetUserVariable(string name, string value)
+        {
+            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(value))
+            {
+                SetAsync(name, value, EnvironmentVariableTarget.User);
+            }
+        }
+
+
+        /// <summary>
+        /// You need special permissions for this. Need to admin.
+        /// or when application is completed run as admin.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public void SetMachineVariable(string name, string value)
+        {
+            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(value))
+            {
+                Set(name, value, EnvironmentVariableTarget.Machine);
+            }
+        }
+
+        public Task SetAsync(string name, string value, EnvironmentVariableTarget target = EnvironmentVariableTarget.Process) => Task.Run(async () =>
         {
             await Task.Run(() =>
             {
                 if(!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(value))
                 {
-                    SetEnvironmentVariable(name, value);
+                    SetEnvironmentVariable(name, value, target);
                 }
                 
             });
         });
 
-        public Task Delete(string name) => Task.Run(async () =>
+        public void DeleteUserVariable(string name)
+        {
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                Delete(name, EnvironmentVariableTarget.User);
+            }
+        }
+
+        public Task Delete(string name, EnvironmentVariableTarget target = EnvironmentVariableTarget.Process) => Task.Run(async () =>
         {
             await Task.Run(() =>
             {
                 if (!string.IsNullOrWhiteSpace(name))
                 {
-                    SetEnvironmentVariable(name, null);
+                    SetEnvironmentVariable(name, null, target);
                 }
             });
         });
