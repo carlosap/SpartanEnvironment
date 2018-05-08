@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Authors>Carlos A. Perez</Authors>
+    <Description>Cross-platform base framework to set and get env values</Description>
+    <PackageLicenseUrl>https://github.com/carlosap/SpartanEnvironment</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/carlosap/SpartanEnvironment</RepositoryUrl>
+    <PackageReleaseNotes>Cross-platform base framework to set and get env values</PackageReleaseNotes>
+    <PackageTags>spartan environment spartan app environment</PackageTags>
   </PropertyGroup>
 
 </Project>
