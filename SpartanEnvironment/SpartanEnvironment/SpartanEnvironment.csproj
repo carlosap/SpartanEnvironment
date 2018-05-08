@@ -8,6 +8,10 @@
     <RepositoryUrl>https://github.com/carlosap/SpartanEnvironment</RepositoryUrl>
     <PackageReleaseNotes>Cross-platform base framework to set and get env values</PackageReleaseNotes>
     <PackageTags>spartan environment spartan app environment</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/carlosap/content/master/images/spartan_32x32.png</PackageIconUrl>
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.1.1</AssemblyVersion>
+    <FileVersion>1.0.1.1</FileVersion>
   </PropertyGroup>
 
 </Project>
