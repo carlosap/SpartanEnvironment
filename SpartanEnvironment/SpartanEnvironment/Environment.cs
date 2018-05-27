@@ -5,13 +5,13 @@ namespace SpartanEnvironment
 {
     public class Environment : IEnviroment
     {
-
+        const string _appPrefix = "Spartan_";
         public string Get(string name, EnvironmentVariableTarget target = EnvironmentVariableTarget.Process)
         {
             string retVal = string.Empty;
             if (!string.IsNullOrWhiteSpace(name))
             {
-                retVal = GetEnvironmentVariable(name, target);
+                retVal = GetEnvironmentVariable(_appPrefix + name, target);
             }
             return retVal;
         }
@@ -21,7 +21,7 @@ namespace SpartanEnvironment
             string retVal = string.Empty;
             if (!string.IsNullOrWhiteSpace(name))
             {
-                retVal = Get(name, EnvironmentVariableTarget.User);
+                retVal = Get(_appPrefix + name, EnvironmentVariableTarget.User);
             }
             return retVal;
         }
@@ -30,7 +30,7 @@ namespace SpartanEnvironment
         {
             if(!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(value))
             {
-                SetEnvironmentVariable(name, value, target);
+                SetEnvironmentVariable(_appPrefix + name, value, target);
             }   
         }
 
@@ -38,7 +38,7 @@ namespace SpartanEnvironment
         {
             if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(value))
             {
-                SetAsync(name, value, EnvironmentVariableTarget.User);
+                SetAsync(_appPrefix + name, value, EnvironmentVariableTarget.User);
             }
         }
 
@@ -53,7 +53,7 @@ namespace SpartanEnvironment
         {
             if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(value))
             {
-                Set(name, value, EnvironmentVariableTarget.Machine);
+                Set(_appPrefix + name, value, EnvironmentVariableTarget.Machine);
             }
         }
 
@@ -63,7 +63,7 @@ namespace SpartanEnvironment
             {
                 if(!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(value))
                 {
-                    SetEnvironmentVariable(name, value, target);
+                    SetEnvironmentVariable(_appPrefix + name, value, target);
                 }
                 
             });
@@ -73,7 +73,7 @@ namespace SpartanEnvironment
         {
             if (!string.IsNullOrWhiteSpace(name))
             {
-                Delete(name, EnvironmentVariableTarget.User);
+                Delete(_appPrefix + name, EnvironmentVariableTarget.User);
             }
         }
 
@@ -83,7 +83,7 @@ namespace SpartanEnvironment
             {
                 if (!string.IsNullOrWhiteSpace(name))
                 {
-                    SetEnvironmentVariable(name, null, target);
+                    SetEnvironmentVariable(_appPrefix + name, null, target);
                 }
             });
         });
